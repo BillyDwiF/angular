@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myRpsiApp">
+  <head>
+    <title>RPSI</title>
+    <link href="content/css/styles.css" rel="stylesheet" type="text/css" />
+    <script src="app/lib/angular.min.js"></script>
+    <script src="app/app.js"></script>
+  </head>
+  <body>
+    <header ng-include="'header.html'"></header>
+    <div class="content">
+      <div ng-controller="RpsiController">
+        <button ng-click="order = 'name'">order by name</button>
+        <button ng-click="order = 'color'">order by color</button>
+        <input type="text" ng-model="search" placeholder="search for a item" />
+        <ul>
+          <li ng-repeat="item in items | orderBy: order | filter: search" ng-show="item.available">
+            <h3>{{item.name}} - {{item.price | currency}}</h3>
+            <div class="remove" ng-click="removeItem(item)">x</div>
+            <span class="color" style="background: {{item.color}}">{{item.color}}</span>
+          </li>
+        </ul>
+        <form ng-submit="addItem()">
+          <input type="text" placeholder="name" ng-model="newitem.name" />
+          <input type="text" placeholder="color" ng-model="newitem.color" />
+          <input type="text" placeholder="price" ng-model="newitem.price" />
+          <input type="submit" value="Add new item" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
